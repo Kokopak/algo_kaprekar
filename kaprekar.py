@@ -10,21 +10,27 @@ def minmaxNombre(nombre):
     maxn = int("".join(sorted(l, reverse=True)))
     return maxn - minn
 
-nbr = input("Nombre : ")
-lis_nbr = []
-et = 1
-while True :
-    resul = minmaxNombre(nbr)
-    if resul == 0 :
-        print "La séquence s'arrête à 0"
-        break
-    elif resul == nbr :
-        print "La séquence est constante"
-        break
-    elif resul in lis_nbr :
-        print "La séquence se répète"
-        break
-    nbr = resul
-    print "Etape %d : %d " % (et, nbr)
-    lis_nbr.append(nbr)
-    et += 1
+def kaprekar(n) :
+    l_nb = []
+    while True :
+        new = minmaxNombre(n)
+        if new == n :
+            # cas de la suite constante
+            return n
+        elif new in l_nb :
+            # cas d'un cycle de nombres
+            pos = l_nb.index(new)
+            return tuple(sorted(l_nb[pos:]))
+        l_nb.append(new)
+        n = new
+
+s = {}
+for n in range(100000) :
+    k = kaprekar(n)
+    if k in s :
+        s[k] += 1
+    else :
+        s[k] = 1
+
+for k in sorted(s.keys()) :
+    print k, s[k]

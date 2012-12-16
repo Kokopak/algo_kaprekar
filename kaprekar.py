@@ -6,7 +6,7 @@ from itertools import permutations
 def minmaxNombre(nombre):
 
     stnbr = str(nombre)
-    if len(str(nbr)) == 1:
+    if len(stnbr) == 1:
         stnbr = "0"+stnbr
 
     maxn = max([int("".join(permu)) for permu in permutations(stnbr, len(stnbr))])
@@ -23,7 +23,7 @@ while not goodEn:
     else:
         goodEn = True
 
-etapes = raw_input("Voir les étapes ? (O/N) ")
+etapes = raw_input("Voir les étapes ? (O pour oui) ")
 
 bon = True
 lis_nbr = []
@@ -49,5 +49,5 @@ elif resul == 0:
     print "La séquence s'arrête à 0"
 else:
     print " ".join(str(el) for el in lis_nbr)
-    print "Nombre bizarre O_O"
+    print "Séquence bizarre O_O"
 

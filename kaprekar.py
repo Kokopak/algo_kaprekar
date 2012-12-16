@@ -5,49 +5,26 @@ from itertools import permutations
 
 def minmaxNombre(nombre):
 
-    stnbr = str(nombre)
-    if len(stnbr) == 1:
-        stnbr = "0"+stnbr
-
-    maxn = max([int("".join(permu)) for permu in permutations(stnbr, len(stnbr))])
-    minn = min([int("".join(permu)) for permu in permutations(stnbr, len(stnbr))])
+    l = list(str(nombre))
+    minn = int("".join(sorted(l)))
+    maxn = int("".join(sorted(l, reverse=True)))
     return maxn - minn
 
-goodEn = False
-
-while not goodEn:
-    try:
-        nbr = input("Nombre : ")
-    except NameError:
-        print "Nombre incorrect !"
-    else:
-        goodEn = True
-
-etapes = raw_input("Voir les étapes ? (O pour oui) ")
-
-bon = True
+nbr = input("Nombre : ")
 lis_nbr = []
-
 et = 1
-while bon:
+while True :
     resul = minmaxNombre(nbr)
-    if resul == nbr or resul == 0 or resul in lis_nbr:
-        bon = False
+    if resul == 0 :
+        print "La séquence s'arrête à 0"
+        break
+    elif resul == nbr :
+        print "La séquence est constante"
+        break
+    elif resul in lis_nbr :
+        print "La séquence se répète"
+        break
     nbr = resul
-    if etapes == "O":
-        print "Etape(s) %d : %d " % (et, nbr)
+    print "Etape %d : %d " % (et, nbr)
     lis_nbr.append(nbr)
     et += 1
-
-print "==================="
-
-if resul in lis_nbr:
-    print " ".join(str(el) for el in lis_nbr) + "..."
-    print "La séquence se répète ou le nombre ne varie plus !"
-elif resul == 0:
-    print " ".join(str(el) for el in lis_nbr)
-    print "La séquence s'arrête à 0"
-else:
-    print " ".join(str(el) for el in lis_nbr)
-    print "Séquence bizarre O_O"
-
